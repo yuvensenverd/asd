@@ -1,0 +1,115 @@
+import React from 'react';
+import logo from './logo.svg';
+import './App.css';
+import Header from './component/header'
+
+class App extends React.Component {
+  state = {
+    mobilOrMotor : 0,
+    jumlah : 0
+  }
+
+  // HITUNG PARKIR
+  hitungParkir = (jenis) => {
+    console.log(jenis)
+    if(jenis == "mobil"){
+      var totaljam = this.refs.mobiljam.value
+      var hasil = totaljam * 4000
+      this.setState({jumlah : hasil})
+    }else if(jenis == "motor"){
+      var totaljam = this.refs.motorjam.value
+      var hasil = totaljam * 2000
+      this.setState({jumlah : hasil})
+    }
+  }
+
+  // PRINT INPUT 
+  printInputParkir = (kendaraan="a") => {
+    if(kendaraan == "mobil"){
+      // var output = `
+      // <input type="number" ref="mobiljam" innerRef="innermobiljam"/>
+      //  <p> Parkir Mobil Rp 4000/Jam </p> 
+      // <input className="btn btn-success" type="button" value="Hitung" onClick="${() => this.hitungParkir("mobil")}"/>
+       
+      return (
+        // // aisjdiaj sdia
+        // document.getElementsByTagName("h1")[1].innerHTML= output
+        
+        this.setState({mobilOrMotor : 1})// MOBIL
+        
+      )
+    }else if(kendaraan == "motor"){
+      return(
+        // document.getElementsByTagName("h1")[1].innerHTML=`
+        // <input type="number" ref="motorjam" innerRef="innermotorjam"/>
+        //  <p> Parkir Motor Rp 2000/Jam </p>
+        // <input className="btn btn-success" type="button" value="Hitung" onClick="${() => this.hitungParkir("motor")}"/>
+        //  `
+        this.setState({mobilOrMotor : 2}) // MOTOR
+
+      )
+    }else{
+  
+    }
+  }
+  render(){
+  const mobil = (
+    <div>
+      <input type="number" ref="mobiljam"/>
+      <p> Parkir Mobil Rp 4000/Jam </p> 
+      <input className="btn btn-success" type="button" value="Hitung" onClick={() => this.hitungParkir("mobil")}/>
+    </div>
+  )
+  const motor = (
+    <div>
+      <input type="number" ref="motorjam"/>
+      <p> Parkir Motor Rp 2000/Jam </p>
+      <input className="btn btn-success" type="button" value="Hitung" onClick={() => this.hitungParkir("motor")} />
+    </div>
+  )
+  return (
+    <div>
+      <Header></Header>
+      <br></br>
+      <div className = 'justify-content-center'>
+        <center>
+      <h1> Aplikasi Parkir </h1>
+      <br></br>
+      <h3>Pilih Kendaraan</h3>
+      <br></br>
+            <input className="btn btn-primary ml-5 mr-5" type="button" value="Mobil" onClick={() => this.printInputParkir("mobil")}></input>
+            <input className="btn btn-primary ml-5 mr-5" type="button" value="Motor" onClick={() => this.printInputParkir("motor")}></input> 
+            </center>
+     </div>
+     <center>
+       <br></br>
+       <h1>{this.state.mobilOrMotor === 1 
+        ? 
+        mobil
+        : 
+        this.state.mobilOrMotor == 2 
+        ?
+        motor 
+        : 
+        null}  
+        </h1>
+       <div className="mt-5 pt-5">
+         <h2> {this.state.jumlah === 0
+         ?
+         null
+         :
+         this.state.jumlah >0
+         ?
+         "Total biaya Rp " + this.state.jumlah
+         :
+         null
+        }
+      </h2>
+      </div>
+     </center>
+    </div>
+  );
+}
+}
+
+export default App;
